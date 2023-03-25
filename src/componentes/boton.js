@@ -7,14 +7,15 @@ function Boton(props) {
   };
 
   return (
-    <div
+    <button
+      disabled={props.isDisabled}
       className={`boton-contenedor ${
         esOperador(props.children) ? "operador" : null
       }`.trimEnd()}
       onClick={() => props.manejarClic(props.children)}
     >
       {props.children}
-    </div>
+    </button>
   );
 }
 

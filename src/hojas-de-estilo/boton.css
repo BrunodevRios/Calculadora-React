@@ -14,6 +14,9 @@
   cursor: pointer;
   user-select: none;
 }
+.boton-contenedor:disabled{
+  background-color: gray;
+}
 
 .boton-contenedor:hover {
   background-color: blueviolet;

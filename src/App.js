@@ -5,18 +5,34 @@ import Pantalla from "./componentes/pantalla.js";
 import BotonBorrar from "./componentes/botonClear.js";
 import { useState } from "react";
 import { evaluate } from "mathjs";
+import { computeHeadingLevel } from "@testing-library/react";
+
 
 function App() {
   const [input, setInput] = useState("");
 
-  const agregrarInput = (val) => {
-    setInput(input + val);
+  const deshabilitarIgual = () =>  {
+  
+    const patron = /^([-]?\d+(\.\d+)?)[+\-*\/](?:([-]?\d+(\.\d+)?)([+\-*\/](?!$)){0,2})$/;
+
+
+    const match = String(input).match(patron);
+    
+    if (match === null){
+      return true;
+    }else { return false};
   };
 
+  const agregrarInput = (val) => {
+    deshabilitarIgual()
+    setInput(input + val);
+  };
+ 
   const calcularResultado = () => {
     if (input) {
       setInput(evaluate(input));
-    } else {
+    } else {  
+
       alert("Porfavor ingrese valores para realizar los calculos!!");
     }
   };
@@ -47,7 +63,7 @@ function App() {
           <Boton manejarClic={agregrarInput}>*</Boton>
         </div>
         <div className="fila">
-          <Boton manejarClic={calcularResultado}>=</Boton>
+          <Boton manejarClic={calcularResultado} isDisabled={deshabilitarIgual()}>=</Boton>
           <Boton manejarClic={agregrarInput}>0</Boton>
           <Boton manejarClic={agregrarInput}>.</Boton>
           <Boton manejarClic={agregrarInput}>/</Boton>
